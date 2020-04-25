@@ -20,23 +20,8 @@ public class HelloWorldService {
 
         String version = null;
 
-        /*try (Connection con = HikariCPDataSource.getConnection()){
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT H2VERSION() as vs FROM DUAL");
-            while (rs.next()) {
-                version = rs.getString("vs");
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
         Ticket ticket = Ticket.builder().id(11).subject("subject").detail("detail").createDate(new Date()).build();
-
         fetchData();
-
-
-
 
         String output = "Jersey say : " + msg + "version : " + version;
         output += ticket.toString();
@@ -48,25 +33,26 @@ public class HelloWorldService {
 
     public static List<Employee> fetchData() throws SQLException {
         List<Employee> employees = null;
-        try (Connection con = HikariCPDataSource.getConnection();
-             PreparedStatement pst = con.prepareStatement("SELECT * FROM EMP;");
-             ResultSet rs = pst.executeQuery();) {
-            employees = new ArrayList<>();
-            Employee employee;
-            while ( rs.next() ) {
-                employee = new Employee();
-                employee.setEmpNo( rs.getInt( "empno" ) );
-                employee.setEname( rs.getString( "ename" ) );
-                employee.setJob( rs.getString( "job" ) );
-                employee.setMgr( rs.getInt( "mgr" ) );
-                employee.setHiredate( rs.getDate( "hiredate" ) );
-                employee.setSal( rs.getInt( "sal" ) );
-                employee.setComm( rs.getInt( "comm" ) );
-                employee.setDeptno( rs.getInt( "deptno" ) );
-                employees.add( employee );
+        try (Connection con = HikariCPDataSource.getConnection()) {
+            try (PreparedStatement pst = con.prepareStatement("SELECT * FROM EMP")) {
+                try (ResultSet rs = pst.executeQuery()) {
+                    employees = new ArrayList<>();
+                    Employee employee;
+                    while (rs.next()) {
+                        employee = new Employee();
+                        employee.setEmpNo(rs.getInt("empno"));
+                        employee.setEname(rs.getString("ename"));
+                        employee.setJob(rs.getString("job"));
+                        employee.setMgr(rs.getInt("mgr"));
+                        employee.setHiredate(rs.getDate("hiredate"));
+                        employee.setSal(rs.getInt("sal"));
+                        employee.setComm(rs.getInt("comm"));
+                        employee.setDeptno(rs.getInt("deptno"));
+                        employees.add(employee);
+                    }
+                }
             }
         }
         return employees;
     }
-
 }
