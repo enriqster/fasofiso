@@ -1,6 +1,7 @@
-package com.zetinc.rest;
+package com.zetinc.rest.ticket.controller;
 
 import com.zetinc.db.HikariCPDataSource;
+import com.zetinc.rest.Employee;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Path("/ticket")
-public class HelloWorldService {
+public class TicketController {
 
     @GET
     @Path("/{param}")
