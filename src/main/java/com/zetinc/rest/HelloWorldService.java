@@ -2,44 +2,53 @@ package com.zetinc.rest;
 
 import com.zetinc.db.HikariCPDataSource;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-@Path("/hello")
+@Path("/ticket")
 public class HelloWorldService {
 
     @GET
     @Path("/{param}")
-    public Response getMsg(@PathParam("param") String msg) throws SQLException {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMsg(@PathParam("param") int empNo) throws SQLException {
+        return Response.status(200).entity(fetchData(empNo)).build();
+    }
 
-        String version = null;
+    @POST
+    @Path("/create")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response createTicket(Employee employee) {
 
-        Ticket ticket = Ticket.builder().id(11).subject("subject").detail("detail").createDate(new Date()).build();
-        fetchData();
+        System.out.println(employee);
 
-        String output = "Jersey say : " + msg + "version : " + version;
-        output += ticket.toString();
+        /*Ticket ticket = Ticket.builder().id(11).subject("subject").detail("detail").createDate(new Date()).build();
+        List<Employee> employees = fetchData(empNo);
+        StringBuilder outputStr = new StringBuilder();
+        for(Employee employee : employees){
+            outputStr.append(employee.getJob()).append(employee.getEname()).append(employee.getHiredate());
+        }
 
-        return Response.status(200).entity(output).build();
+        String output = "Jersey say : " + empNo + "version : " + outputStr;
+        output += ticket.toString();*/
+
+        return Response.status(200).entity(employee).build();
 
     }
 
-
-    public static List<Employee> fetchData() throws SQLException {
-        List<Employee> employees = null;
+    public static Employee fetchData(int empNo) throws SQLException {
         try (Connection con = HikariCPDataSource.getConnection()) {
-            try (PreparedStatement pst = con.prepareStatement("SELECT * FROM EMP")) {
+            try (PreparedStatement pst = con.prepareStatement("SELECT * FROM EMP WHERE empno=?")) {
+                pst.setInt(1, empNo);
                 try (ResultSet rs = pst.executeQuery()) {
-                    employees = new ArrayList<>();
-                    Employee employee;
-                    while (rs.next()) {
-                        employee = new Employee();
+                    if (rs.next()) {
+                        Employee employee = new Employee();
                         employee.setEmpNo(rs.getInt("empno"));
                         employee.setEname(rs.getString("ename"));
                         employee.setJob(rs.getString("job"));
@@ -48,11 +57,11 @@ public class HelloWorldService {
                         employee.setSal(rs.getInt("sal"));
                         employee.setComm(rs.getInt("comm"));
                         employee.setDeptno(rs.getInt("deptno"));
-                        employees.add(employee);
+                        return employee;
                     }
                 }
             }
         }
-        return employees;
+        return null;
     }
 }

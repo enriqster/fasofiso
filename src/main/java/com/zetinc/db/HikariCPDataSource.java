@@ -17,35 +17,9 @@ public class HikariCPDataSource {
         ds.setPassword("1");
         ds.setMaximumPoolSize(2);
         ds.setDriverClassName("org.postgresql.ds.PGSimpleDataSource");
-
-
-
-        /*config.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
-        config.setUsername("postgres");
-        config.setPassword("1");
-        config.addDataSourceProperty("dataSourceClassName","org.postgresql.ds.PGSimpleDataSource");
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");*/
-
-        /*config.setJdbcUrl("jdbc:postgresql://localhost:32768/zetdb");
-        config.setUsername("izzet");
-        config.setPassword("1");
-        config.addDataSourceProperty("dataSourceClassName","org.postgresql.ds.PGSimpleDataSource");
-        config.addDataSourceProperty( "cachePrepStmts" , "true" );
-        config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
-        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
-        ds = new HikariDataSource( config );*/
-
-        /*Properties props = new Properties();
-        props.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
-        props.setProperty("dataSource.user", "izzet");
-        props.setProperty("dataSource.password", "1");
-        props.setProperty("dataSource.databaseName", "zetdb");
-        props.put("dataSource.logWriter", new PrintWriter(System.out));
-
-        HikariConfig config = new HikariConfig(props);
-        ds = new HikariDataSource(config);*/
+        ds.addDataSourceProperty("cachePrepStmts", true);
+        ds.addDataSourceProperty("prepStmtCacheSize", 250);
+        ds.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
     }
 
     public static Connection getConnection() throws SQLException {

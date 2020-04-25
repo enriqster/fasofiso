@@ -29,6 +29,18 @@
           <element id="library" level="project" name="Maven: org.mortbay.jetty:servlet-api:2.5-20081211" />
           <element id="library" level="project" name="Maven: org.mortbay.jetty:jetty-util:6.1.26" />
           <element id="library" level="project" name="Maven: org.mortbay.jetty:jetty-management:6.1.26" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-json:1.18.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.jettison:jettison:1.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.2" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.2" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.9.2" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-xc:1.9.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.3.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.3.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.3.0" />
           <element id="library" level="project" name="Maven: com.h2database:h2:1.4.200" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.2.12" />
           <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:3.4.0" />
